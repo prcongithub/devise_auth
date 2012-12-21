@@ -1,0 +1,56 @@
+<%= form_for(@order) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  
+  <div class="field">
+    <%= f.label :dispatch_date %><br />
+    <%= f.date_select :dispatch_date %>
+  </div>
+  
+  <br/><br/><br/><br/>
+  <div>
+  	<%= f.fields_for :line_items do |lif| %>
+  		<div class="field">
+  			<%= lif.label "Select product" %>
+  			<%= lif.select :product_id, Product.all.map { |product| [product.name, product.id] }, { :prompt => "Select Product" }, { :class => "select_product" } %>
+  			<span class="product_price"></span>
+  		</div>
+  		<%= lif.hidden_field :rate %>
+  		<div class="field">
+  			<%= lif.label "Quantity" %>
+  			<%= lif.text_field :quantity %>
+  		</div>
+  	<% end %>
+  </div>
+  
+  
+  <br/><br/><br/>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+	$(".select_product").change(function(){
+		var product_id = $(this).val();
+		if(product_id != null && product_id != ""){
+			var hash = {};
+			hash["attribute_id"] = $(this).attr("id").split("_")[4]
+			hash["product_id"] = product_id;
+			jsRequest("/get_product_price",hash);
+		}else{
+			$(this).next().html("");
+		}
+	});
+</script>
