@@ -6,4 +6,8 @@ class LineItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :product
   
+  def total
+  	return self.rate * self.quantity
+  end
+  
 end

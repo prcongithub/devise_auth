@@ -2,12 +2,31 @@
 
 <p>
   <b>User:</b>
-  <%= @order.user_id %>
+  <%= @order.user.name %>
 </p>
 
 <p>
   <b>Dispatch date:</b>
   <%= @order.dispatch_date %>
+</p>
+
+<p>
+	<table>
+		<tr>
+			<th>Product Name</th>
+			<th>Qunatity</th>
+			<th>Rate</th>
+			<th>Total</th>
+		</tr>
+		<% @order.line_items.each do |li| %>
+			<tr>
+				<td><%= li.product.name %></td>
+				<td><%= li.quantity %></td>
+				<td><%= li.rate %></td>
+				<td><%= li.total %></td>
+			</tr>
+		<% end %>
+	</table>
 </p>
 
 <p>

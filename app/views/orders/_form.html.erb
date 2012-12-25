@@ -20,22 +20,30 @@
   
   <br/><br/><br/><br/>
   <div>
-  	<%= f.fields_for :line_items do |lif| %>
-  		<div class="field">
-  			<%= lif.label "Select product" %>
-  			<%= lif.select :product_id, Product.all.map { |product| [product.name, product.id] }, { :prompt => "Select Product" }, { :class => "select_product" } %>
-  			<span class="product_price"></span>
-  		</div>
-  		<%= lif.hidden_field :rate %>
-  		<div class="field">
-  			<%= lif.label "Quantity" %>
-  			<%= lif.text_field :quantity %>
+  	<%= f.fields_for(:line_items) do |lif| %>
+  		<div class="round" style="padding:10px;border:solid 2px #ddd;">
+				<div class="field">
+					<%= lif.label "Select product" %>
+					<%= lif.select :product_id, Product.all.map { |product| [product.name, product.id] }, { :prompt => "Select Product" }, { :class => "select_product" } %>
+				</div>
+				<div class="field">
+					<%= lif.label "Quantity" %>
+					<%= lif.text_field :quantity, :class => "quantity" %>
+					<span class="product_price"></span>
+				</div>
+				<%= lif.hidden_field :rate %>
   		</div>
   	<% end %>
   </div>
   
   
   <br/><br/><br/>
+  <div>
+  	Total amount : <span id="span_total_price">0</span>
+  </div>
+  
+  <%= f.hidden_field :total_price %>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -52,5 +60,21 @@
 		}else{
 			$(this).next().html("");
 		}
+	});
+	
+	
+	$(".quantity").blur(function(){
+		var total_price = 0;
+		$(".quantity").each(function(){
+			var quantity = parseInt($(this).val());
+			var price = parseFloat($(this).next().html());
+			if(!isNaN(price) && !isNaN(quantity)){
+				total_price = total_price + quantity * price;
+				console.log(total_price);
+			}
+		});
+		
+		$("#span_total_price").html(total_price+"");
+		$("#order_total_price").val(total_price);
 	});
 </script>

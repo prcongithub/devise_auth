@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  rescue_from CanCan::AccessDenied, :with => :access_denied
   
   before_filter :show_cookies
   
@@ -16,6 +17,11 @@ class ApplicationController < ActionController::Base
   
   def set_cookies
   	cookies[:my_cookie] = "test";
+  end
+  
+  def access_denied
+  	flash[:notice] = "You are not authorized to access this page!"
+  	redirect_to root_url
   end
   
   

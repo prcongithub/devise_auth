@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
-	
-	before_filter :check_user
+	before_filter :authenticate_user!
+	load_and_authorize_resource
 	
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.where(:user_id => current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
