@@ -10,5 +10,6 @@ class User < ActiveRecord::Base
   attr_accessible :name, :phone, :address
   
   has_many :orders
+  has_many :products, :through => :orders
   
 end

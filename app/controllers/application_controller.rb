@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   private 
   
   def show_cookies
-  	Rails.logger.info "******************* #{request.headers['HTTP_COOKIE']} **********"
+  	#Rails.logger.info "******************* #{request.headers['HTTP_COOKIE']} **********"
   end
   
   def set_cookies
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
   
   def access_denied
-  	flash[:notice] = "You are not authorized to access this page!"
+  	flash[:notice] = "You are not allowed to do this!"
   	redirect_to root_url
   end
   

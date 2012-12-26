@@ -2,10 +2,15 @@ class OrdersController < ApplicationController
 	before_filter :authenticate_user!
 	load_and_authorize_resource
 	
+	before_filter :before_filter_callback
+	after_filter :after_filter_callback
+	
+	around_filter :around_filter_callback
+	
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.where(:user_id => current_user.id)
+    @orders = Order.all #where(:user_id => current_user.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -63,7 +68,7 @@ class OrdersController < ApplicationController
   # PUT /orders/1.json
   def update
     @order = Order.find(params[:id])
-
+ Order
     respond_to do |format|
       if @order.update_attributes(params[:order])
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
@@ -98,4 +103,23 @@ class OrdersController < ApplicationController
   		redirect_to(new_user_session_path)
   	end
   end
-end
+  
+  def before_filter_callback
+  	Rails.logger.info "============== Inside before_filter_callback for orders controller :: #{response.body} =============="
+  	
+  end
+  
+  def after_filter_callback
+  	Rails.logger.info "************** Inside after_filter_callback for orders controller :: #{response.body} ***************"
+  	
+  end
+  
+  
+  def around_filter_callback
+  	Rails.logger.info "Inside around_filter_callback before yield"
+  	Order.where(:user_id => current_user.id).scoping do
+  		yield
+  	end
+  	Rails.logger.info "Inside around_filter_callback after yield"
+  end
+end	

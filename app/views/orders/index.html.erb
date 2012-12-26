@@ -18,8 +18,16 @@
     <td><%= order.dispatch_date %></td>
     <td><%= order.total_price %></td>
     <td><%= link_to 'Show', order %></td>
-    <td><%= link_to 'Edit', edit_order_path(order) %></td>
-    <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td>
+    	<% if can?(:edit,order) %>
+	    	<%= link_to 'Edit', edit_order_path(order) %>
+    	<% end %>
+  	</td>
+    <td>
+    	<% if can?(:destroy,order) %>
+	    	<%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
+    	<% end %>
+    </td>
   </tr>
 <% end %>
 </table>
