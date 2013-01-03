@@ -3,16 +3,18 @@ class Ability
 
   def initialize(user)
 		user ||= User.new # guest user (not logged in)
-		
+
 		can :read, :all
 		
 		can :manage, Order do |order|
-			order.user_id == user.id
+			order.new_record? or order.user_id == user.id
+		end
+		
+		if user.new_record?
+			cannot :create, Order
 		end
 		
 		cannot :destroy, Order
-		
-		
 		
 		#if user.admin?
 		#	can :manage, :all

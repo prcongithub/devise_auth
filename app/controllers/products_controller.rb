@@ -11,6 +11,14 @@ class ProductsController < ApplicationController
     end
   end
   
+  def jsonproducts
+  	@products = Product.all
+
+    respond_to do |format|
+      format.json { render json: @products }
+    end
+  end
+  
   
   def get_price
   	@product = Product.find(params[:product_id])

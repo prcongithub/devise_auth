@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-	before_filter :authenticate_user!
+	#before_filter :authenticate_user!
 	load_and_authorize_resource
 	
 	before_filter :before_filter_callback
@@ -52,7 +52,6 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(params[:order])
-
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
@@ -117,7 +116,11 @@ class OrdersController < ApplicationController
   
   def around_filter_callback
   	Rails.logger.info "Inside around_filter_callback before yield"
-  	Order.where(:user_id => current_user.id).scoping do
+  	if current_user
+			Order.where(:user_id => current_user.id).scoping do
+				yield
+			end
+  	else
   		yield
   	end
   	Rails.logger.info "Inside around_filter_callback after yield"

@@ -1,15 +1,6 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>User:</b>
-  <%= @order.user.name %>
-</p>
-
-<p>
-  <b>Dispatch date:</b>
-  <%= @order.dispatch_date %>
-</p>
-
+Hi <%= @order.user.name %>, <br/>
+        We have suuccessfully received your order. The details of the same are as follows. <br/><br/>
+        
 <p>
 	<table>
 		<tr>
@@ -34,6 +25,13 @@
   <%= @order.total_price %>
 </p>
 
+<p>
+	For more details visit your order <a href="<%= url_for(:controller => "orders",
+            :action => "show", :id => @order.id, :only_path => false,) %>"> here.</a>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+</p>
+
+<p> 
+	Thank you.  
+</p>
+

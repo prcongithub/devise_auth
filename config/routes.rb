@@ -3,6 +3,7 @@ DeviseAuth::Application.routes.draw do
 
 
 	match "/get_product_price", :to => "products#get_price"
+	match "/jsonproducts", :to => "products#jsonproducts"
 
   resources :products
 

@@ -1,6 +1,6 @@
 <h1>Listing products</h1>
 
-<table>
+<table id="table_products">
   <tr>
     <th>Name</th>
     <th>Desc</th>
@@ -9,19 +9,30 @@
     <th></th>
     <th></th>
   </tr>
-
-<% @products.each do |product| %>
-  <tr>
-    <td><%= product.name %></td>
-    <td><%= product.desc %></td>
-    <td><%= product.price %></td>
-    <td><%= link_to 'Show', product %></td>
-    <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
 </table>
 
 <br />
 
 <%= link_to 'New Product', new_product_path %>
+
+<script type="text/javascript">
+	function get_products_success(response){
+		var i = 0;
+		for(i = 0; i < response.length; i++){
+			var product = response[i];
+			var tr_string = "<tr>";
+			tr_string += "<td>"+ product.name +"</td>";
+			tr_string += "<td>"+ product.desc +"</td>";
+			tr_string += "<td>"+ product.price +"</td>";
+			tr_string += "</tr>";
+			$("#table_products").append(tr_string);
+		}
+	}
+	
+	function get_products_failure(response){
+	}
+
+	var hash = {};
+	
+	jsonRequest("/jsonproducts",hash,get_products_success, get_products_failure);
+</script>

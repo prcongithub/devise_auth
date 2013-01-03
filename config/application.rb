@@ -32,6 +32,13 @@ module DeviseAuth
 		# assets precompile to work on heroku	forcing your application to not access the DB
     # or load models when precompiling your assets.
 		config.assets.initialize_on_precompile = false
+		
+		# url options for devise
+		if Rails.env == "development"
+			config.action_mailer.default_url_options = { :host => "localhost:4000" }
+		else
+			config.action_mailer.default_url_options = { :host => "shoppingcart.truespider.com" }
+		end
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]

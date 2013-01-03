@@ -22,7 +22,13 @@ class Order < ActiveRecord::Base
   #has_and_belongs_to_many :products
   before_save :set_total_price
   
+  after_create :after_create_callback
+  
   private
+  
+  def after_create_callback
+  	Notifier.order_confirmation_to_user(self).deliver
+  end
   
   def set_total_price
   	Rails.logger.info "-------------- Setting total price before saving the order... ----------"

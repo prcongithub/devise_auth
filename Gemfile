@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.9'
 
@@ -52,3 +52,5 @@ end
 
 gem 'devise'
 gem "cancan"
+
+gem "ar_mailer_rails3"

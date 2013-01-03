@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121225042618) do
+ActiveRecord::Schema.define(:version => 20130103052550) do
+
+  create_table "emails", :force => true do |t|
+    t.string   "from"
+    t.string   "to"
+    t.integer  "last_send_attempt", :default => 0
+    t.text     "mail"
+    t.datetime "created_on"
+  end
 
   create_table "line_items", :force => true do |t|
     t.integer  "product_id"
