@@ -10,6 +10,7 @@ DeviseAuth::Application.routes.draw do
 
   devise_for :users
   
+  match "/javascript_demo", :to => "site#javascript_demo", :as => :javascript_demo
   match "/about", :to => "pages#about", :as => :about
   match "/contact", :to => "pages#contact", :as => :contact
   match "/site/help", :to => "site#help", :as => :help

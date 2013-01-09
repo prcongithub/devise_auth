@@ -1,0 +1,143 @@
+<style>
+	.box {
+		width: 100px;
+		height: 100px;
+		border: solid 1px #ddd;
+		border-radius: 10px;
+		padding: 10px;
+		margin-left: 10px;
+		margin-top: 10px;
+		float:left;
+	}
+	
+	.clr {
+		height: 0px;
+		clear: both;
+	}
+</style>
+<div id="div_name"><span>Prashant</span> Chaudhari</div>
+
+<div>
+	<div class="box">
+		Box 1
+	</div>
+	<div class="box">
+		Box 2
+	</div>
+	<div class="box">
+		Box 3
+	</div>
+	<div class="clr"></div>
+</div>
+
+<script type="text/javascript">
+	//say_hello(); // Undeifined method say_hello
+</script>	
+<script type="text/javascript">
+	//alert(1)
+	
+	//var c = confirm("Are you sure?");
+	//alert(c);
+	
+	var i = 10;
+	var f = 10.5;
+	var str = "Hello World!";
+	var a = new Array();
+	a.push(1);
+	a.push("2");
+	a.push(3);
+	
+	// asdasdconsole.log(a); // reference error and restof the code will not be executed
+	
+	console.log(a);
+	
+	var hash = {};
+	//hash[:name] = "Prashant"; // syntax error
+	hash["name"] = "Prashant";
+	hash["roll_no"] = 11;
+	hash[1] = 11;
+	console.log(hash);
+	console.log(hash.name);
+	console.log(hash["name"]);
+	//console.log(hash.1); // syntax error
+	console.log(hash[1]);
+
+	console.log(hash.email);
+	hash.email = "p@p.com";
+	console.log(hash.email);
+	
+	var o = new Object();
+	console.log(o);
+	console.log(o.email);
+	o.email = "a@a.com";
+	console.log(o.email);
+	
+	say_hello(); // this works because function is available inside this block
+	
+	function say_hello(a,b,c){
+		console.log("Hello from Say Hello Function a = " + a + ", b = " + b + ", c = "+ c);
+	}
+</script>
+
+<script type="text/javascript">
+	say_hello(1,2); // method is defined in previous script block
+</script>	
+
+<script type="text/javascript">
+	console.log(document.location.toString());
+	var name_div = document.getElementById("div_name");
+	console.log(name_div.innerHTML);
+	console.log(name_div.innerText);
+	
+	name_div.innerHTML = "<p>Ahmad</p>";
+	
+	console.log(name_div.innerHTML);
+	console.log(name_div.innerText);
+</script>
+
+<script type="text/javascript">
+	// window.location.reload(true); // infinite reloads
+	// document.location.reload(true); // infinite reloads
+	
+	//window.open("http://localhost:4000","Index Page","_self");
+	
+	console.log(window.location);
+	
+	//window.location = "/";
+	
+</script>	
+
+<script type="text/javascript">
+	// jQuery Basics	
+
+	console.log("get HTML Using jQuery : " + jQuery("#div_name").html());
+	
+	jQuery("#div_name").css({"background": "#000", "border":"solid 1px #ddd", "color": "#fff", "padding": "5px"});
+	
+	/*
+		jQuery("#div_name").hide();
+		jQuery("#div_name").show();
+	
+		jQuery("#div_name").toggle();
+	
+		jQuery("#div_name").toggle();
+	
+		jQuery("#div_name").slideToggle();
+	
+		jQuery("#div_name").slideToggle();
+	*/
+	
+	console.log("Hiding the boxex");
+	$(".box").slideToggle();
+	
+	console.log("Showing the boxex");
+	$(".box").slideToggle();
+	
+	$(".box").slideToggle();
+	
+	$(".box").each(function(){
+		console.log(this); // this points to original javascript div object HTMLDivElement
+		console.log($(this).text());
+		$(this).slideToggle();
+	});
+</script>
