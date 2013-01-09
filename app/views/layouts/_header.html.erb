@@ -1,7 +1,7 @@
 <header class="round">
 	<%= link_to(logo, root_path) %>
 	<nav>
-		Welcome <%= current_user.name rescue "Guest" %>
+		Welcome <%= current_user.name rescue "Guest" %> (<%= current_user.role rescue '-' %>) 
 		<ul>
 			<li><%= link_to("Home",root_path) %></li>
 			<% if not current_user %>	

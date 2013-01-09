@@ -7,10 +7,14 @@ class User < ActiveRecord::Base
          :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :name, :phone, :address
+  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :name, :phone, :address, :remember_me
   
   has_many :orders
   has_many :products, :through => :orders
+  
+  def self.inheritance_column
+  	return "role"
+  end
   
 end
